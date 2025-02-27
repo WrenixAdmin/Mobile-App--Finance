@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../components/custom_clip_path.dart';
 import '../../utils/colors.dart';
+import '../../utils/icons.dart';
 
 
 class ScreenOne extends StatelessWidget {
+  const ScreenOne({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,13 +63,14 @@ class ScreenOne extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.circle, size: 10, color: AppColors.indicatorInactive),
-                        Icon(Icons.circle, size: 10, color: AppColors.indicatorActive),
-                        Icon(Icons.circle, size: 10, color: AppColors.indicatorInactive),
+                        Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorInactive),
+                        Icon(AppIcons.activeIndicator, size: 10, color: AppColors.indicatorActive),
+                        Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorInactive),
                       ],
+
                     ),
                   ],
                 ),
