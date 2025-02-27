@@ -1,31 +1,19 @@
-
+import 'package:finance/screens/splash/get_start_screen_one.dart';
 import 'package:flutter/material.dart';
 
-void main(){
+
+void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget{
-  const MyApp({Key ? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Finance App",
-      theme: ThemeData(primaryColor: Colors.blue),
-      home: Column(
-        children: [
-          const Text("Finance Ap"),
-          const Placeholder(),
-        ],
-      ),
+      debugShowCheckedModeBanner: false,
+      home: ScreenOne(),
     );
-
-
-
-
-
-
   }
-
 }
