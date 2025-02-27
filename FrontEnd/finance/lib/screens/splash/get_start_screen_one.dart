@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../components/custom_clip_path.dart';
 import '../../utils/colors.dart';
 
+
 class ScreenOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class ScreenOne extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      backgroundColor: AppColors.buttonBackground,
+                      backgroundColor: AppColors.primaryColor,
                     ),
                     child: const Text('Skip'),
                   ),
@@ -38,7 +39,7 @@ class ScreenOne extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('assets/sample_image.png', height: 200),
+                    Image.asset('assets/screen_one.png', height: 200),
                     const SizedBox(height: 20),
                     const Text(
                       'Smart Expense Tracker',
