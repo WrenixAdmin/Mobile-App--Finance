@@ -1,3 +1,4 @@
+import 'package:finance/screens/login/login_screen.dart';
 import 'package:finance/screens/splash/get_start_screen_one.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ScreenOne(),
+      home: LoginScreen(),
     );
   }
 }
