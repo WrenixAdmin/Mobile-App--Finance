@@ -1,3 +1,4 @@
+import 'package:finance/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import '../../components/custom_clip_path.dart';
 import '../../utils/colors.dart';
@@ -17,7 +18,7 @@ class ScreenThree extends StatelessWidget {
             clipper: CustomClipPath(),
             child: Container(
               height: 500,
-              color: AppColors.lightPurpleColor, // No corresponding color in AppColors
+              color: AppColors.lightPurpleColor,
             ),
           ),
           Column(
@@ -27,7 +28,13 @@ class ScreenThree extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  DashboardScreen()),
+                      );
+                    },
+
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -44,13 +51,13 @@ class ScreenThree extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 100), // Increased space above the image
+                    const SizedBox(height: 100), // Increased space above the image
                     Image.asset('assets/screen_one.png', height: 200),
                     const Column(
                       // Increased space between the two texts
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 200),
+                        SizedBox(height: 200),
                         Text(
                           'Subscription & SMS',
                           style: AppStyles.title,
@@ -68,9 +75,9 @@ class ScreenThree extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: const Text(
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Text(
                   'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                   textAlign: TextAlign.center,
                   style: AppStyles.subtitle,
@@ -84,7 +91,7 @@ class ScreenThree extends StatelessWidget {
                   Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorActive),
                 ],
               ),
-              const SizedBox(height: 40), // Add some space at the bottom
+              const SizedBox(height: 40),
             ],
           ),
         ],
