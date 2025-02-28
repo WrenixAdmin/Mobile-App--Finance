@@ -1,7 +1,8 @@
 import 'package:finance/utils/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:finance/components/ProfileIcon.dart';
+
+import '../../components/curve_cliper.dart';
 
 class Transaction {
   final String month;
@@ -37,8 +38,12 @@ class TransactionHistoryScreen extends StatelessWidget {
 
   const TransactionHistoryScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.bodyBagroundColor,
@@ -58,12 +63,12 @@ class TransactionHistoryScreen extends StatelessWidget {
           ClipPath(
             clipper: CurveClipper(),
             child: Container(
-              color:  AppColors.bodyBagroundColor,
-              height: 150,
+              color: AppColors.bodyBagroundColor,
+              height: screenHeight * 0.2,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02, vertical: screenHeight * 0.01),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -74,32 +79,40 @@ class TransactionHistoryScreen extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: history.transactions.length,
-              itemBuilder: (context, index) {
-                final transaction = history.transactions[index];
-                final isNewMonth = index == 0 || transaction.month != history.transactions[index - 1].month;
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    if (isNewMonth)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          transaction.month,
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ListTile(
-                      title: Text(transaction.name),
-                      subtitle: Text(transaction.date),
-                      trailing: Text(transaction.amount),
-                    ),
-                  ],
-                );
-              },
+          Container(
+            margin: EdgeInsets.all(screenWidth * 0.03),
+            padding: EdgeInsets.all(screenWidth * 0.05),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                SizedBox(height: screenHeight * 0.01),
+                Container(
+                  height: screenHeight * 0.4, // Adjust the height of the 3D container
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: history.transactions.length,
+                    itemBuilder: (context, index) {
+                      final transaction = history.transactions[index];
+                      return ListTile(
+                        title: Text(transaction.name),
+                        subtitle: Text(transaction.date),
+                        trailing: Text(transaction.amount),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -123,17 +136,3 @@ class TransactionHistoryScreen extends StatelessWidget {
   }
 }
 
-class CurveClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height - 50);
-    path.quadraticBezierTo(size.width / 2, size.height, size.width, size.height - 50);
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
-}
