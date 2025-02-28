@@ -1,3 +1,4 @@
+import 'package:finance/screens/home/home_screen.dart';
 import 'package:finance/screens/login/register_screen.dart';
 import 'package:finance/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 10),
               const Text(
                 'Login now to track all your expenses and income at a place!',
-                style: TextStyle(fontSize: 16),
+                style: AppStyles.subtitle,
                 textAlign: TextAlign.left,
               ),
               const SizedBox(height: 20),
@@ -53,6 +54,7 @@ class LoginScreen extends StatelessWidget {
                 text: 'Login',
                 onPressed: () {
                   // Handle login logic
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
                 },
               ),
               const SizedBox(height: 20),

@@ -1,3 +1,4 @@
+import 'package:finance/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:finance/utils/colors.dart'; // Ensure this path is correct
 import '../../components/custom_text_filed.dart'; // Import the custom text field widget
@@ -24,17 +25,17 @@ class RegisterScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 20),
+
               const Text(
                 'Register',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: AppStyles.title,
                 textAlign: TextAlign.left,
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
               const Text(
                 'Register now to track all your expenses and income at a place!',
-                style: TextStyle(fontSize: 16),
-                textAlign: TextAlign.center,
+                style: AppStyles.subtitle,
+                textAlign: TextAlign.left,
               ),
               const SizedBox(height: 20),
               const CustomTextField(
@@ -59,6 +60,12 @@ class RegisterScreen extends StatelessWidget {
                 onPressed: () {
                   // Handle registration logic
                 },
+              ),
+              const SizedBox(height: 30),
+              Text(
+                'Already have an account?',
+                style: AppStyles.subFooter,
+                textAlign: TextAlign.center,
               ),
             ],
           ),

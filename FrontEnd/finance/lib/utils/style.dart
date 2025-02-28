@@ -28,4 +28,16 @@ class AppStyles {
     color: AppColors.textPrimary,
     fontFamily: 'Poppins',
   );
+
+  static const TextStyle miniText = TextStyle(
+    fontSize: 16,
+    color: AppColors.secondaryColor,
+    fontFamily: 'Poppins',
+  );
+
+  static const TextStyle subFooter = TextStyle(
+    fontSize: 16,
+    color: AppColors.textPrimary,
+    fontFamily: 'Poppins',
+  );
 }
