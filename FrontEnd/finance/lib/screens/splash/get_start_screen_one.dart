@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../components/custom_clip_path.dart';
 import '../../utils/colors.dart';
 import '../../utils/icons.dart';
-
+import '../../utils/style.dart';
+import 'get_start_screen_two.dart';
 
 class ScreenOne extends StatelessWidget {
   const ScreenOne({super.key});
@@ -17,7 +18,7 @@ class ScreenOne extends StatelessWidget {
             clipper: CustomClipPath(),
             child: Container(
               height: 500,
-              color: AppColors.lightPurpleColor, // No corresponding color in AppColors
+              color: AppColors.lightPurpleColor,
             ),
           ),
           Column(
@@ -27,14 +28,22 @@ class ScreenOne extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topRight,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ScreenTwo()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                       backgroundColor: AppColors.primaryColor,
                     ),
-                    child: const Text('Skip'),
+                    child: const Text(
+                      'Skip',
+                      style: AppStyles.button,
+                    ),
                   ),
                 ),
               ),
@@ -42,39 +51,46 @@ class ScreenOne extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    SizedBox(height: 100),
                     Image.asset('assets/screen_one.png', height: 200),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Smart Expense Tracker',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.textPrimary,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 10),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, color: AppColors.textSecondary),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Row(
+                    const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorInactive),
-                        Icon(AppIcons.activeIndicator, size: 10, color: AppColors.indicatorActive),
-                        Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorInactive),
+                        SizedBox(height: 200),
+                        Text(
+                          'Smart Expense Tracker',
+                          style: AppStyles.title,
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'AI',
+                          style: AppStyles.title,
+                          textAlign: TextAlign.center,
+                        ),
                       ],
-
                     ),
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: const Text(
+                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+                  textAlign: TextAlign.center,
+                  style: AppStyles.subtitle,
+                ),
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorActive),
+                  Icon(AppIcons.activeIndicator, size: 10, color: AppColors.indicatorInactive),
+                  Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorInactive),
+                ],
+              ),
+              const SizedBox(height: 40),
             ],
           ),
         ],
