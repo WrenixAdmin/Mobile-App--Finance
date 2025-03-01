@@ -16,7 +16,7 @@ class RegisterScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+
           },
         ),
       ),
