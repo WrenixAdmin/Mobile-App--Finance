@@ -11,7 +11,6 @@ class ScreenThree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           ClipPath(
@@ -51,13 +50,12 @@ class ScreenThree extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 100), // Increased space above the image
-                    Image.asset('assets/screen_one.png', height: 200),
+                    Image.asset('images/screen_three.png', height: 300),
                     const Column(
                       // Increased space between the two texts
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 200),
+                        SizedBox(height: 50),
                         Text(
                           'Subscription & SMS',
                           style: AppStyles.title,

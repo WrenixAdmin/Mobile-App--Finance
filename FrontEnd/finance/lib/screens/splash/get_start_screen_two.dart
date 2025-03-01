@@ -11,7 +11,6 @@ class ScreenTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           ClipPath(
@@ -51,7 +50,7 @@ class ScreenTwo extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('images/screen_one.png', height: 300),
+                    Image.asset('images/screen_two.png', height: 300),
                     const Column(
                       // Increased space between the two texts
                       mainAxisAlignment: MainAxisAlignment.center,
