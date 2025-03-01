@@ -1,3 +1,4 @@
+import 'package:finance/screens/login/login_screen.dart';
 import 'package:finance/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:finance/utils/colors.dart'; // Ensure this path is correct
@@ -58,14 +59,18 @@ class RegisterScreen extends StatelessWidget {
               CustomButton(
                 text: 'Register',
                 onPressed: () {
-                  // Handle registration logic
                 },
               ),
               const SizedBox(height: 30),
-              Text(
-                'Already have an account?',
-                style: AppStyles.subFooter,
-                textAlign: TextAlign.center,
+              TextButton(
+                onPressed: () {
+                  // Handle login logic
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                },
+                child: const Text(
+                  'Already have an account? Login',
+
+                ),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:finance/screens/home/home_screen.dart';
+import 'package:finance/screens/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import '../../components/custom_clip_path.dart';
 import '../../utils/colors.dart';
@@ -30,7 +31,7 @@ class ScreenThree extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) =>  DashboardScreen()),
+                        MaterialPageRoute(builder: (context) =>  const LoginScreen()),
                       );
                     },
 
