@@ -59,6 +59,7 @@ flutter:
   uses-material-design: true
   assets:
      - images/screen_one.png
+     - images/screen_two.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

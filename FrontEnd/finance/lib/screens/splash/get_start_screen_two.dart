@@ -17,7 +17,7 @@ class ScreenTwo extends StatelessWidget {
           ClipPath(
             clipper: CustomClipPath(),
             child: Container(
-              height: 500,
+              height: 450,
               color: AppColors.lightPurpleColor,
             ),
           ),
@@ -51,13 +51,12 @@ class ScreenTwo extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 100), // Increased space above the image
-                    Image.asset('assets/screen_one.png', height: 200),
+                    Image.asset('images/screen_one.png', height: 300),
                     const Column(
                       // Increased space between the two texts
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 200),
+                        SizedBox(height: 50),
                         Text(
                           'MS Extraction &',
                           style: AppStyles.title,
