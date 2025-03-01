@@ -11,13 +11,13 @@ class ScreenOne extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+
       body: Stack(
         children: [
           ClipPath(
             clipper: CustomClipPath(),
             child: Container(
-              height: 500,
+              height: 450,
               color: AppColors.lightPurpleColor,
             ),
           ),
@@ -51,12 +51,11 @@ class ScreenOne extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 100),
-                    Image.asset('assets/screen_one.png', height: 200),
+                    Image.asset('images/screen_one.png', height: 200),
                     const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 200),
+                        SizedBox(height: 50),
                         Text(
                           'Smart Expense Tracker',
                           style: AppStyles.title,
