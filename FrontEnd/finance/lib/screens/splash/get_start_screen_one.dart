@@ -51,7 +51,7 @@ class ScreenOne extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset('images/screen_one.png', height: 200),
+                    Image.asset('images/screen_one.png', height: 300),
                     const Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
