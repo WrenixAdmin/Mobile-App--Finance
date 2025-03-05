@@ -11,11 +11,11 @@ class BudgetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(150),
+        preferredSize: Size.fromHeight(160),
         child: Container(
-          padding: EdgeInsets.only(top: 40, left: 16, right: 16),
-          decoration: const BoxDecoration(
-            color: AppColors.lightPurpleColor,
+          padding: EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 20),
+          decoration: BoxDecoration(
+            color: Color(0xFFD7C3FB),
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
@@ -27,32 +27,23 @@ class BudgetScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(GreetingMessage().getGreeting(),
-                          style: AppStyles.body),
-                      const SizedBox(height: 4),
-                      const Text('Nico Robin',
-                          style: AppStyles.headr),
-                      const Text('Welcome to Dashboard',
-                          style: AppStyles.body),
-                    ],
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProfileScreen()),
-                      );
+                  IconButton(
+                    icon: Icon(Icons.arrow_back, size: 28),
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
-                    child: ProfileAvatar(
-                      imagePath: 'images/avatar.png',
-                      radius: 24,
-                    ),
+                  ),
+                  Text('Transaction',
+                      style:
+                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  CircleAvatar(
+                    backgroundImage: AssetImage('images/avatar.png'),
+                    radius: 20,
                   ),
                 ],
               ),
+              SizedBox(height: 10),
+
             ],
           ),
         ),
