@@ -1,97 +1,147 @@
-import 'package:finance/components/ProfileIcon.dart';
 import 'package:flutter/material.dart';
 
-class Transaction {
-  final String month;
-  final String name;
-  final String amount;
-  final String date;
-  final String icon;
-
-  const Transaction({
-    required this.month,
-    required this.name,
-    required this.amount,
-    required this.date,
-    required this.icon,
-  });
-}
+import '../../components/navigator.dart';
 
 class TransactionHistoryScreen extends StatelessWidget {
-  final List<Transaction> transactions = const [
-    Transaction(month: "October, 2024", name: "Starbucks-Coffee", amount: "\$12.50", date: "Oct 19, 05:45 AM", icon: "assets/starbucks.png"),
-    Transaction(month: "October, 2024", name: "Uber-Ride", amount: "\$54.00", date: "Oct 15, 09:10 PM", icon: "assets/uber.png"),
-    Transaction(month: "October, 2024", name: "Uber-Ride", amount: "\$25.00", date: "Oct 12, 02:13 PM", icon: "assets/uber.png"),
-    Transaction(month: "October, 2024", name: "Walmart-Household", amount: "\$10.50", date: "Oct 07, 09:10 PM", icon: "assets/walmart.png"),
-    Transaction(month: "October, 2024", name: "Pizzahut-Chilly Fry Pizza", amount: "\$08.00", date: "Oct 02, 01:19 AM", icon: "assets/pizzahut.png"),
-    Transaction(month: "September, 2024", name: "Uber-Ride", amount: "\$13.00", date: "Sep 28, 09:10 PM", icon: "assets/uber.png"),
-    Transaction(month: "September, 2024", name: "Walmart-Table", amount: "\$20.00", date: "Sep 25, 09:10 PM", icon: "assets/walmart.png"),
-    Transaction(month: "September, 2024", name: "Uber-Ride", amount: "\$15.00", date: "Sep 22, 10:24 AM", icon: "assets/uber.png"),
-  ];
-
-  const TransactionHistoryScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
-      appBar: AppBar(
-        backgroundColor: Colors.purple.shade100,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text("Transaction", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        centerTitle: false,
-        actions: [
-          IconButton(icon: const Icon(Icons.search, color: Colors.black), onPressed: () {}),
-          ProfileIcon(userName: "John Doe"),
-          const SizedBox(width: 15),
-        ],
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: ["Today", "Week", "Month", "Year"]
-                  .map((filter) => _buildFilterButton(filter))
-                  .toList(),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(160),
+        child: Container(
+          padding: EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 20),
+          decoration: BoxDecoration(
+            color: Color(0xFFD7C3FB),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: transactions.length,
-              itemBuilder: (context, index) {
-                final transaction = transactions[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    backgroundImage: AssetImage(transaction.icon),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back, size: 28),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                  title: Text(transaction.name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text(transaction.date, style: TextStyle(color: Colors.grey.shade600)),
-                  trailing: Text(transaction.amount, style: const TextStyle(fontWeight: FontWeight.bold)),
-                );
-              },
-            ),
+                  Text('Transaction',
+                      style:
+                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  CircleAvatar(
+                    backgroundImage: AssetImage('images/avatar.png'),
+                    radius: 20,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              _buildFilterBar(),
+            ],
           ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            _buildTransactionSection('October, 2024', [
+              _buildTransactionItem('Starbucks-Coffee', 'Oct 19, 05:45 AM', '\$12.50'),
+              _buildTransactionItem('Uber-Ride', 'Oct 15, 09:10 PM', '\$54.00'),
+              _buildTransactionItem('Uber-Ride', 'Oct 12, 02:13 PM', '\$25.00'),
+              _buildTransactionItem('Walmart-Household', 'Oct 07, 09:10 PM', '\$10.50'),
+              _buildTransactionItem('Pizzahut-chily fry Pizza', 'Oct 02, 01:19 AM', '\$08.00'),
+            ]),
+            _buildTransactionSection('September, 2024', [
+              _buildTransactionItem('Uber-Ride', 'Sep 28, 09:10 PM', '\$13.00'),
+              _buildTransactionItem('Walmart-Table', 'Sep 25, 09:10 PM', '\$20.00'),
+              _buildTransactionItem('Uber-Ride', 'Sep 22, 10:24 AM', '\$15.00'),
+            ]),
+          ],
+        ),
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 2, onTap: (index) {}),
+    );
+  }
+
+  Widget _buildFilterBar() {
+    return Container(
+      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildFilterButton('Today'),
+          _buildFilterButton('Week'),
+          _buildFilterButton('Month', selected: true),
+          _buildFilterButton('Year'),
         ],
       ),
     );
   }
 
-  Widget _buildFilterButton(String text) {
-    return ElevatedButton(
-      onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.purple.shade100,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  Widget _buildFilterButton(String text, {bool selected = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          backgroundColor: selected ? Colors.purple : Colors.white,
+          foregroundColor: selected ? Colors.white : Colors.black54,
+          elevation: 0, // Remove shadow
+        ),
+        child: Text(text),
       ),
-      child: Text(text),
     );
+  }
+
+  Widget _buildTransactionSection(String title, List<Widget> transactions) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        ),
+        ...transactions,
+      ],
+    );
+  }
+
+  Widget _buildTransactionItem(String name, String date, String amount) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 4),
+      child: ListTile(
+        leading: _getTransactionIcon(name),
+        title: Text(name),
+        subtitle: Text(date),
+        trailing: Text(amount, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      ),
+    );
+  }
+
+  Widget _getTransactionIcon(String name) {
+    if (name.contains('Uber')) {
+      return CircleAvatar(backgroundColor: Colors.black, child: Text('U', style: TextStyle(color: Colors.white)));
+    } else if (name.contains('Walmart')) {
+      return CircleAvatar(backgroundColor: Colors.blue, child: Text('W', style: TextStyle(color: Colors.white)));
+    } else if (name.contains('Starbucks')) {
+      return CircleAvatar(backgroundColor: Colors.green, child: Text('S', style: TextStyle(color: Colors.white)));
+    } else if (name.contains('Pizzahut')) {
+      return CircleAvatar(backgroundColor: Colors.red, child: Text('P', style: TextStyle(color: Colors.white)));
+    } else {
+      return CircleAvatar(backgroundColor: Colors.grey, child: Text('T', style: TextStyle(color: Colors.white)));
+    }
   }
 }

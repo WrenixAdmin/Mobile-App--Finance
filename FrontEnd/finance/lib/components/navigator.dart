@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:finance/screens/home/home_screen.dart';
 import 'package:finance/screens/summery/summery_screen.dart';
 
+import '../screens/budget/budget_screen.dart';
+import '../screens/transactional/transactional_screen.dart';
+
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
@@ -65,6 +68,17 @@ class CustomBottomNavigationBar extends StatelessWidget {
               MaterialPageRoute(builder: (context) => SpendingScreen()),
             );
             break;
+          case 2:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TransactionHistoryScreen()),
+            );
+            break;
+          case 3:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => BudgetScreen()),
+            );
         // Add cases for other indices if needed
         }
         onTap(index);

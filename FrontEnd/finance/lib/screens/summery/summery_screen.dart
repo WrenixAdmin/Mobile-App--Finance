@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/navigator.dart';
+import '../../components/profile_avatar.dart';
+import '../profile/profile_screen.dart';
 
 
 class SpendingScreen extends StatelessWidget {
@@ -40,9 +42,17 @@ class SpendingScreen extends StatelessWidget {
                               fontSize: 22, fontWeight: FontWeight.bold)),
                     ],
                   ),
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/profile.jpg'),
-                    radius: 24,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfileScreen()),
+                      );
+                    },
+                    child: ProfileAvatar(
+                      imagePath: 'images/avatar.png',
+                      radius: 24,
+                    ),
                   ),
                 ],
               ),
