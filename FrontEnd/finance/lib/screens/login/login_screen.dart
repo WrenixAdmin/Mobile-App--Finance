@@ -55,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                 text: 'Login',
                 onPressed: () {
                   // Handle login logic
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
               ),
               const SizedBox(height: 20),

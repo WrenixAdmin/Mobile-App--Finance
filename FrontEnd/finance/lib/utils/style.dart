@@ -16,6 +16,14 @@ class AppStyles {
     fontFamily: 'Poppins',
   );
 
+
+  static const TextStyle headr = TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+    fontFamily: 'Poppins',
+  );
+
   static const TextStyle button = TextStyle(
     fontSize: 16,
     color: AppColors.secondaryColor,
@@ -40,4 +48,6 @@ class AppStyles {
     color: AppColors.textPrimary,
     fontFamily: 'Poppins',
   );
+
+
 }
