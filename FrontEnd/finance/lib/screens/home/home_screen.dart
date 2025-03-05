@@ -1,11 +1,12 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+import '../../service/greeting.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF5F3FE),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(150),
         child: Container(
@@ -26,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Good morning 😊',
+                      Text(GreetingMessage().getGreeting(),
                           style: TextStyle(fontSize: 16, color: Colors.black54)),
                       SizedBox(height: 4),
                       Text('Nico Robin',
