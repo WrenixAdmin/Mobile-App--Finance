@@ -1,4 +1,5 @@
 // custom_container.dart
+import 'package:finance/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomContainer extends StatelessWidget {
@@ -11,7 +12,7 @@ class CustomContainer extends StatelessWidget {
     Key? key,
     required this.child,
     this.padding = const EdgeInsets.only(top: 40, bottom: 20),
-    this.color = const Color(0xFFD4CFE0),
+    this.color = AppColors.lightPurpleColor,
     this.borderRadius = const BorderRadius.only(
       bottomLeft: Radius.circular(30),
       bottomRight: Radius.circular(30),

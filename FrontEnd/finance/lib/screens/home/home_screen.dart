@@ -1,6 +1,12 @@
+import 'package:finance/components/profile_avatar.dart';
+import 'package:finance/screens/profile/profile_screen.dart';
+import 'package:finance/utils/colors.dart';
+import 'package:finance/utils/style.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
+
+import '../../components/navigator.dart';
 import '../../service/greeting.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,8 +17,8 @@ class HomeScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(150),
         child: Container(
           padding: EdgeInsets.only(top: 40, left: 16, right: 16),
-          decoration: BoxDecoration(
-            color: Color(0xFFD7C3FB),
+          decoration: const BoxDecoration(
+            color: AppColors.lightPurpleColor,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
@@ -28,17 +34,25 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(GreetingMessage().getGreeting(),
-                          style: TextStyle(fontSize: 16, color: Colors.black54)),
-                      SizedBox(height: 4),
-                      Text('Nico Robin',
-                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                      Text('Welcome to Dashboard',
-                          style: TextStyle(fontSize: 14, color: Colors.black54)),
+                          style: AppStyles.body),
+                      const SizedBox(height: 4),
+                      const Text('Nico Robin',
+                          style: AppStyles.headr),
+                      const Text('Welcome to Dashboard',
+                          style: AppStyles.body),
                     ],
                   ),
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/profile.jpg'),
-                    radius: 24,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfileScreen()),
+                      );
+                    },
+                    child: ProfileAvatar(
+                      imagePath: 'images/avatar.png',
+                      radius: 24,
+                    ),
                   ),
                 ],
               ),
@@ -56,7 +70,7 @@ class HomeScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black12,
                     blurRadius: 6,
@@ -66,20 +80,20 @@ class HomeScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text('Total Balance',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  const Text('Total Balance',
+                      style: AppStyles.headr),
                   SizedBox(height: 8),
-                  Text('\$50,943',
+                  const Text('\$50,943',
                       style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
                   SizedBox(height: 4),
-                  Text('Last 30 Days +12%',
-                      style: TextStyle(color: Colors.green, fontSize: 16)),
-                  SizedBox(height: 16),
+                  const Text('Last 30 Days +12%',
+                      style: TextStyle(color: AppColors.statusGreen, fontSize: 16)),
+                  const SizedBox(height: 16),
                   Container(height: 150, child: _buildChart()),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 50),
             Column(
               children: [
                 _buildInfoTile('Buying Power', '\$580.00'),
@@ -90,19 +104,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Colors.white,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Spending'),
-          BottomNavigationBarItem(icon: Icon(Icons.swap_horiz), label: 'Transaction'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Budget'),
-        ],
-        currentIndex: 0,
-        selectedItemColor: Colors.purple,
-        onTap: (int index) {},
-      ),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 0, onTap: (index) {}),
     );
   }
 
@@ -124,7 +126,7 @@ class HomeScreen extends StatelessWidget {
               FlSpot(6, 2.5),
             ],
             isCurved: true,
-            color: Colors.purple,
+            color: AppColors.primaryColor,
             barWidth: 3,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(show: false),
@@ -139,9 +141,9 @@ class HomeScreen extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 6),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.lightPurpleColor,
         borderRadius: BorderRadius.circular(10),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 4,

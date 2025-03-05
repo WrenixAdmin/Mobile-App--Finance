@@ -12,42 +12,57 @@ class ProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomContainer(
-              child: Column(
-                children: [
-                  const Text(
-                    'Profile & Settings',
-                    style: AppStyles.headr,
+            Stack(
+              children: [
+                CustomContainer(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Profile & Settings',
+                        style: AppStyles.headr,
+                      ),
+                      const SizedBox(height: 16),
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundImage: AssetImage('images/avatar.png'),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Nico Robin',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'nico@gmail.com',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Change profile',
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/Profile.png'),
+                ),
+                Positioned(
+                  top: 16,
+                  left: 16,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back, color: Colors.black),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Nico Robin',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'nico@gmail.com',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'Change profile',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             SizedBox(height: 16),
             DefaultTabController(
@@ -55,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   TabBar(
-                    labelColor: Colors.purple,
+                    labelColor: AppColors.primaryColor,
                     unselectedLabelColor: Colors.grey,
                     indicatorColor: Colors.purple,
                     tabs: [
@@ -171,7 +186,6 @@ void _showLogoutDialog(BuildContext context) {
     builder: (BuildContext context) {
       return LogoutDialog(
         onConfirm: () {
-          // Add your logout logic here
           print("User Logged Out!");
         },
       );

@@ -62,6 +62,7 @@ flutter:
      - images/screen_one.png
      - images/screen_two.png
      - images/screen_three.png
+     - images/avatar.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

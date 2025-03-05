@@ -7,4 +7,12 @@ class AppIcons {
   static const IconData calendar = Icons.calendar_today;
   static const IconData arrowForward = Icons.arrow_forward_ios;
 
+
+  //Navigator Icons
+  static const IconData home = Icons.home;
+  static const IconData spending = Icons.shopping_cart;
+  static const IconData transaction = Icons.swap_horiz;
+  static const IconData budget = Icons.account_balance_wallet;
+
+
 }
