@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 
 import '../../components/navigator.dart';
 import '../../service/greeting.dart';
+import 'add_expences.dart';
+
+
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -65,33 +68,51 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
-                  )
-                ],
-              ),
-              child: Column(
-                children: [
-                  const Text('Total Balance',
-                      style: AppStyles.headr),
-                  SizedBox(height: 8),
-                  const Text('\$50,943',
-                      style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-                  SizedBox(height: 4),
-                  const Text('Last 30 Days +12%',
-                      style: TextStyle(color: AppColors.statusGreen, fontSize: 16)),
-                  const SizedBox(height: 16),
-                  Container(height: 150, child: _buildChart()),
-                ],
-              ),
+            Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 6,
+                        offset: Offset(0, 3),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      const Text('Total Balance',
+                          style: AppStyles.headr),
+                      SizedBox(height: 8),
+                      const Text('\$50,943',
+                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 4),
+                      const Text('Last 30 Days +12%',
+                          style: TextStyle(color: AppColors.statusGreen, fontSize: 16)),
+                      const SizedBox(height: 16),
+                      Container(height: 150, child: _buildChart()),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 16,
+                  top: 16,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ExpenseScreen()),
+                      );
+                    },
+                    child: Icon(Icons.add),
+                    mini: true,
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 50),
             Column(
