@@ -6,6 +6,8 @@ class AppIcons {
   static const IconData receipt = Icons.receipt;
   static const IconData calendar = Icons.calendar_today;
   static const IconData arrowForward = Icons.arrow_forward_ios;
+  static const IconData addButton = Icons.add;
+  static const IconData notification = Icons.notifications;
 
 
   //Navigator Icons

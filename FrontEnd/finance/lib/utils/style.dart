@@ -30,6 +30,14 @@ class AppStyles {
     fontFamily: 'Poppins',
   );
 
+  static const TextStyle bodyHeadTitle = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+    color: AppColors.textPrimary,
+    fontFamily: 'Poppins',
+  );
+
+
   static const TextStyle bodyTitle = TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.bold,
@@ -44,9 +52,17 @@ class AppStyles {
     fontFamily: 'Poppins',
   );
 
+
+  static const TextStyle bodyMini = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: AppColors.textPrimaryLight,
+    fontFamily: 'Poppins',
+  );
+
   static const TextStyle miniText = TextStyle(
     fontSize: 16,
-    color: AppColors.secondaryColor,
+    color: AppColors.textSecondary,
     fontFamily: 'Poppins',
   );
 

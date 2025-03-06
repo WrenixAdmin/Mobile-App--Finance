@@ -43,12 +43,12 @@ class BudgetScreen extends StatelessWidget {
               SizedBox(height: 10),
               Text(
                 'September 2024',
-                style: TextStyle(fontSize: 16, color: Colors.black54),
+                style: AppStyles.miniText,
               ),
               SizedBox(height: 5),
               Text(
                 '\$1,812', // Added centered header
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                style: AppStyles.bodyHeadTitle,
               ),
             ],
           ),
@@ -71,7 +71,7 @@ class BudgetScreen extends StatelessWidget {
               _buildSubCategory('Subscriptions', 52, 0),
               _buildSubCategory('House service', 138, 10),
               _buildSubCategory('Maintenance', 130, 30),
-            ], Icons.receipt_long, AppColors.black),
+            ], Icons.receipt_long, AppColors.primaryColor),
           ],
         ),
       ),
@@ -101,15 +101,15 @@ class BudgetScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Left to spend', style: TextStyle(fontSize: 14, color: Colors.black54)),
+                  Text('Left to spend', style:AppStyles.miniText),
                   SizedBox(height: 4),
-                  Text('\$$leftToSpend', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('\$$leftToSpend', style: AppStyles.miniText),
                 ],
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('Monthly budget', style: TextStyle(fontSize: 14, color: Colors.black54)),
+                  Text('Monthly budget', style: AppStyles.bodyMini),
                   SizedBox(height: 4),
                   Text('\$$monthlyBudget', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 ],
@@ -142,7 +142,7 @@ class BudgetScreen extends StatelessWidget {
             children: [
               Icon(icon, color: color),
               SizedBox(width: 10),
-              Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(title, style: AppStyles.bodyTitle),
               Spacer(),
               Text('\$$total', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ],
@@ -160,7 +160,7 @@ class BudgetScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(name, style: TextStyle(fontSize: 16, color: Colors.black54)),
+          Text(name, style: TextStyle(fontSize: 16, color: AppColors.textPrimaryLight)),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [

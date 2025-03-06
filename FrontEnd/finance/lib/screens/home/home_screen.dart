@@ -1,6 +1,7 @@
 import 'package:finance/components/profile_avatar.dart';
 import 'package:finance/screens/profile/profile_screen.dart';
 import 'package:finance/utils/colors.dart';
+import 'package:finance/utils/icons.dart';
 import 'package:finance/utils/style.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ import 'package:flutter/material.dart';
 
 import '../../components/navigator.dart';
 import '../../service/greeting.dart';
+import '../notification/notification_screen.dart';
 import 'add_expences.dart';
+
 
 
 
@@ -45,17 +48,30 @@ class HomeScreen extends StatelessWidget {
                           style: AppStyles.body),
                     ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProfileScreen()),
-                      );
-                    },
-                    child: ProfileAvatar(
-                      imagePath: 'images/avatar.png',
-                      radius: 24,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(AppIcons.notification),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NotificationScreen()),
+                          );
+                        },
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProfileScreen()),
+                          );
+                        },
+                        child: ProfileAvatar(
+                          imagePath: 'images/avatar.png',
+                          radius: 24,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -108,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => ExpenseScreen()),
                       );
                     },
-                    child: Icon(Icons.add),
+                    child: Icon(AppIcons.addButton),
                     mini: true,
                   ),
                 ),
