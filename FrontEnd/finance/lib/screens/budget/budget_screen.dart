@@ -11,7 +11,7 @@ class BudgetScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(160),
+        preferredSize: Size.fromHeight(180), // Increased height for new text
         child: Container(
           padding: EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 20),
           decoration: BoxDecoration(
@@ -22,7 +22,7 @@ class BudgetScreen extends StatelessWidget {
             ),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,9 +33,7 @@ class BudgetScreen extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  Text('Transaction',
-                      style:
-                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  Text('Budgets', style: AppStyles.title),
                   CircleAvatar(
                     backgroundImage: AssetImage('images/avatar.png'),
                     radius: 20,
@@ -43,11 +41,20 @@ class BudgetScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 10),
-
+              Text(
+                'September 2024',
+                style: TextStyle(fontSize: 16, color: Colors.black54),
+              ),
+              SizedBox(height: 5),
+              Text(
+                '\$1,812', // Added centered header
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(

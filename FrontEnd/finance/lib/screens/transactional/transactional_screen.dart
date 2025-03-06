@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
+// File: finance/lib/screens/transactional/transactional_screen.dart
 
+import 'package:finance/utils/colors.dart';
+import 'package:finance/utils/style.dart';
+import 'package:flutter/material.dart';
 import '../../components/navigator.dart';
+import 'transaction_deatils.dart'; // Import the TransactionDetailsScreen
 
 class TransactionHistoryScreen extends StatelessWidget {
   @override
@@ -29,9 +33,7 @@ class TransactionHistoryScreen extends StatelessWidget {
                       Navigator.pop(context);
                     },
                   ),
-                  Text('Transaction',
-                      style:
-                      TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  Text('Transaction', style: AppStyles.title),
                   CircleAvatar(
                     backgroundImage: AssetImage('images/avatar.png'),
                     radius: 20,
@@ -49,16 +51,16 @@ class TransactionHistoryScreen extends StatelessWidget {
         child: ListView(
           children: [
             _buildTransactionSection('October, 2024', [
-              _buildTransactionItem('Starbucks-Coffee', 'Oct 19, 05:45 AM', '\$12.50'),
-              _buildTransactionItem('Uber-Ride', 'Oct 15, 09:10 PM', '\$54.00'),
-              _buildTransactionItem('Uber-Ride', 'Oct 12, 02:13 PM', '\$25.00'),
-              _buildTransactionItem('Walmart-Household', 'Oct 07, 09:10 PM', '\$10.50'),
-              _buildTransactionItem('Pizzahut-chily fry Pizza', 'Oct 02, 01:19 AM', '\$08.00'),
+              _buildTransactionItem(context, 'Starbucks-Coffee', 'Oct 19, 05:45 AM', '\$12.50'),
+              _buildTransactionItem(context, 'Uber-Ride', 'Oct 15, 09:10 PM', '\$54.00'),
+              _buildTransactionItem(context, 'Uber-Ride', 'Oct 12, 02:13 PM', '\$25.00'),
+              _buildTransactionItem(context, 'Walmart-Household', 'Oct 07, 09:10 PM', '\$10.50'),
+              _buildTransactionItem(context, 'Pizzahut-chily fry Pizza', 'Oct 02, 01:19 AM', '\$08.00'),
             ]),
             _buildTransactionSection('September, 2024', [
-              _buildTransactionItem('Uber-Ride', 'Sep 28, 09:10 PM', '\$13.00'),
-              _buildTransactionItem('Walmart-Table', 'Sep 25, 09:10 PM', '\$20.00'),
-              _buildTransactionItem('Uber-Ride', 'Sep 22, 10:24 AM', '\$15.00'),
+              _buildTransactionItem(context, 'Uber-Ride', 'Sep 28, 09:10 PM', '\$13.00'),
+              _buildTransactionItem(context, 'Walmart-Table', 'Sep 25, 09:10 PM', '\$20.00'),
+              _buildTransactionItem(context, 'Uber-Ride', 'Sep 22, 10:24 AM', '\$15.00'),
             ]),
           ],
         ),
@@ -72,7 +74,7 @@ class TransactionHistoryScreen extends StatelessWidget {
       padding: EdgeInsets.all(8),
       margin: EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.4),
+        color: AppColors.white.withOpacity(0.4),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -119,7 +121,7 @@ class TransactionHistoryScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTransactionItem(String name, String date, String amount) {
+  Widget _buildTransactionItem(BuildContext context, String name, String date, String amount) {
     return Card(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
@@ -127,6 +129,12 @@ class TransactionHistoryScreen extends StatelessWidget {
         title: Text(name),
         subtitle: Text(date),
         trailing: Text(amount, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TransactionDetailsScreen()),
+          );
+        },
       ),
     );
   }

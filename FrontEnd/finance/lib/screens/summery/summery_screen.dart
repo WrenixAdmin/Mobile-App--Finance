@@ -1,3 +1,5 @@
+import 'package:finance/utils/colors.dart';
+import 'package:finance/utils/style.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +9,8 @@ import '../profile/profile_screen.dart';
 
 
 class SpendingScreen extends StatelessWidget {
+  const SpendingScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,15 +35,12 @@ class SpendingScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Summary',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 4),
+                          style: AppStyles.title),
                       Text('Total Balance',
-                          style: TextStyle(fontSize: 14, color: Colors.black54)),
+                          style: AppStyles.body),
                       SizedBox(height: 4),
                       Text('\$678.40',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold)),
+                          style: AppStyles.headr),
                     ],
                   ),
                   GestureDetector(
@@ -68,9 +69,9 @@ class SpendingScreen extends StatelessWidget {
             Center(
               child: ToggleButtons(
                 borderRadius: BorderRadius.circular(20),
-                selectedColor: Colors.white,
-                fillColor: Colors.purple,
-                color: Colors.black54,
+                selectedColor: AppColors.white,
+                fillColor: AppColors.primaryColor,
+                color: AppColors.black,
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -87,7 +88,7 @@ class SpendingScreen extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text('Spending by Category',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                style: AppStyles.bodyTitle),
             SizedBox(height: 16),
             Expanded(
               child: SingleChildScrollView(
@@ -118,7 +119,7 @@ class SpendingScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black12,
+            color:AppColors.secondaryColor,
             blurRadius: 6,
             offset: Offset(0, 3),
           ),
@@ -134,7 +135,7 @@ class SpendingScreen extends StatelessWidget {
             children: [
               Text(amount, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               if (change.isNotEmpty)
-                Text(change, style: TextStyle(fontSize: 16, color: Colors.green)),
+                Text(change, style: TextStyle(fontSize: 16, color:AppColors.statusGreen)),
             ],
           ),
           SizedBox(height: 16),
@@ -162,7 +163,7 @@ class SpendingScreen extends StatelessWidget {
               FlSpot(6, 2.5),
             ],
             isCurved: true,
-            color: Colors.purple,
+            color: AppColors.primaryColor,
             barWidth: 3,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(show: false),
