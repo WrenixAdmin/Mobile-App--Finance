@@ -9,6 +9,7 @@ class AppIcons {
   static const IconData addButton = Icons.add;
   static const IconData notification = Icons.notifications;
   static const IconData search = Icons.search;
+  static const IconData person = Icons.person;
 
 
   //Navigator Icons

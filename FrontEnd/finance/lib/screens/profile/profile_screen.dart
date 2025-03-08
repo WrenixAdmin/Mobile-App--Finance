@@ -5,7 +5,14 @@ import '../../utils/colors.dart';
 import '../../utils/icons.dart';
 import '../modal/log_out_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  int _selectedTabIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +49,6 @@ class ProfileScreen extends StatelessWidget {
                           color: Colors.grey,
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Change profile',
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -72,61 +72,22 @@ class ProfileScreen extends StatelessWidget {
                   TabBar(
                     labelColor: AppColors.primaryColor,
                     unselectedLabelColor: Colors.grey,
-                    indicatorColor: Colors.purple,
+                    indicatorColor: AppColors.primaryColor,
+                    onTap: (index) {
+                      setState(() {
+                        _selectedTabIndex = index;
+                      });
+                    },
                     tabs: [
                       Tab(text: 'Account'),
                       Tab(text: 'Privacy & Security'),
-                      Tab(text: 'Notification'),
+                      Tab(text: 'About & Legal'),
                     ],
                   ),
                   SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ListTile(
-                          title: Text('Currency'),
-                          trailing: Text('\$ USD', style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                        Divider(),
-                        ListTile(
-                          title: Text('Theme'),
-                          trailing: Text('Light', style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                        SizedBox(height: 24),
-                        _buildCard(
-                          icon: Icons.calendar_today,
-                          title: 'Your Subscriptions',
-                          subtitle: 'Total Subscriptions: 3 active, 5 canceled',
-                          onTap: () {},
-                        ),
-                        SizedBox(height: 16),
-                        _buildCard(
-                          icon: Icons.person,
-                          title: 'Your Activity',
-                          subtitle: '01. Adjust your spending up by 30%\n02. Allocate the savings elsewhere',
-                          onTap: () {},
-                        ),
-                        SizedBox(height: 24),
-                        Center(
-                          child: ElevatedButton(
-                            onPressed: () => _showLogoutDialog(context),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purple,
-                              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            child: Text(
-                              'Log Out',
-                              style: TextStyle(color: Colors.white, fontSize: 16),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _buildTabContent(),
                   ),
                 ],
               ),
@@ -135,6 +96,139 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildTabContent() {
+    switch (_selectedTabIndex) {
+      case 0:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              title: Text('Currency'),
+              trailing: Text('\$ USD', style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+            Divider(),
+            ListTile(
+              title: Text('Theme'),
+              trailing: Text('Light', style: TextStyle(fontWeight: FontWeight.bold)),
+            ),
+            SizedBox(height: 24),
+            _buildCard(
+              icon: AppIcons.calendar,
+              title: 'Your Subscriptions',
+              subtitle: 'Total Subscriptions: 3 active, 5 canceled',
+              onTap: () {},
+            ),
+            SizedBox(height: 16),
+            _buildCard(
+              icon: AppIcons.person,
+              title: 'Your Activity',
+              subtitle: '01. Adjust your spending up by 30%\n02. Allocate the savings elsewhere',
+              onTap: () {},
+            ),
+            SizedBox(height: 24),
+            Center(
+              child: ElevatedButton(
+                onPressed: () => _showLogoutDialog(context),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  'Log Out',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        );
+      case 1:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Add content for Privacy & Security tab
+          ],
+        );
+      case 2:
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'About & Legal',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'Privacy Policy',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              style: TextStyle(fontSize: 14, color: Colors.black54),
+            ),
+            SizedBox(height: 24),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  'Learn More',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+            Text(
+              'Terms of Use',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+            ),
+            SizedBox(height: 8),
+            Text(
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+              style: TextStyle(fontSize: 14, color: Colors.black54),
+            ),
+            SizedBox(height: 24),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.primaryColor,
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  'Learn More',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        );
+      default:
+        return Container();
+    }
   }
 
   Widget _buildCard({required IconData icon, required String title, required String subtitle, required VoidCallback onTap}) {
@@ -149,7 +243,7 @@ class ProfileScreen extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(icon, color: Colors.purple, size: 28),
+            Icon(icon, color: AppColors.primaryColor, size: 28),
             SizedBox(width: 16),
             Expanded(
               child: Column(
@@ -160,7 +254,7 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.purple,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                   SizedBox(height: 4),
@@ -177,18 +271,18 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-}
 
-void _showLogoutDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (BuildContext context) {
-      return LogoutDialog(
-        onConfirm: () {
-          print("User Logged Out!");
-        },
-      );
-    },
-  );
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return LogoutDialog(
+          onConfirm: () {
+            print("User Logged Out!");
+          },
+        );
+      },
+    );
+  }
 }
