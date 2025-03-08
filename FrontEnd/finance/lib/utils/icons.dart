@@ -8,6 +8,7 @@ class AppIcons {
   static const IconData arrowForward = Icons.arrow_forward_ios;
   static const IconData addButton = Icons.add;
   static const IconData notification = Icons.notifications;
+  static const IconData search = Icons.search;
 
 
   //Navigator Icons

@@ -1,3 +1,4 @@
+import 'package:finance/utils/icons.dart';
 import 'package:flutter/material.dart';
 import '../../components/navigator.dart';
 import '../../components/profile_avatar.dart';
@@ -15,7 +16,7 @@ class NotificationScreen extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 20),
           decoration: BoxDecoration(
-            color: Color(0xFFD7C3FB),
+            color: AppColors.lightPurpleColor,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
@@ -44,7 +45,7 @@ class NotificationScreen extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search notifications...',
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: Icon(AppIcons.search),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30),
                     borderSide: BorderSide.none,
@@ -117,7 +118,7 @@ class NotificationScreen extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.purple,
+                      backgroundColor: AppColors.primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
