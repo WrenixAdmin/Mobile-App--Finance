@@ -1,86 +1,199 @@
+import 'package:finance/components/profile_avatar.dart';
+import 'package:finance/screens/profile/profile_screen.dart';
+import 'package:finance/utils/colors.dart';
+import 'package:finance/utils/icons.dart';
+import 'package:finance/utils/style.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import '../../components/ProfileIcon.dart'; // Update the path as necessary
 
-class DashboardScreen extends StatelessWidget {
+
+import '../../components/navigator.dart';
+import '../../service/greeting.dart';
+import '../notification/notification_screen.dart';
+import 'add_expences.dart';
+
+
+
+
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Good morning,'),
-                Text('Nico Robin', style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(150),
+        child: Container(
+          padding: EdgeInsets.only(top: 40, left: 16, right: 16),
+          decoration: const BoxDecoration(
+            color: AppColors.lightPurpleColor,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
             ),
-            ProfileIcon(userName: 'Nico Robin'),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Welcome to Dashboard', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Home'),
-                  Text('Spending'),
-                  Text('Insights'),
-                  Text('Transaction'),
-                ],
-              ),
-              SizedBox(height: 20),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Total Balance', style: TextStyle(fontSize: 16)),
-                      Text('\$50,943', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                      Text('Last 30 Days +12%', style: TextStyle(fontSize: 14)),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text('1D'),
-                          Text('1W'),
-                          Text('1M'),
-                          Text('3M'),
-                          Text('1Y'),
-                        ],
+                      Text(GreetingMessage().getGreeting(),
+                          style: AppStyles.body),
+                      const SizedBox(height: 4),
+                      const Text('Nico Robin',
+                          style: AppStyles.headr),
+                      const Text('Welcome to Dashboard',
+                          style: AppStyles.body),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(AppIcons.notification),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => NotificationScreen()),
+                          );
+                        },
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProfileScreen()),
+                          );
+                        },
+                        child: ProfileAvatar(
+                          imagePath: 'images/avatar.png',
+                          radius: 24,
+                        ),
                       ),
                     ],
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Buying Power', style: TextStyle(fontSize: 16)),
-                      Text('\$580.00', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 10),
-                      Text('Interest accrued this month \$23.20', style: TextStyle(fontSize: 14)),
-                      Text('Lifetime interest paid \$86.52', style: TextStyle(fontSize: 14)),
-                    ],
-                  ),
-                ),
+                ],
               ),
             ],
           ),
         ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 6,
+                        offset: Offset(0, 3),
+                      )
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      const Text('Total Balance',
+                          style: AppStyles.headr),
+                      SizedBox(height: 8),
+                      const Text('\$50,943',
+                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 4),
+                      const Text('Last 30 Days +12%',
+                          style: TextStyle(color: AppColors.statusGreen, fontSize: 16)),
+                      const SizedBox(height: 16),
+                      Container(height: 150, child: _buildChart()),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 16,
+                  top: 16,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ExpenseScreen()),
+                      );
+                    },
+                    child: Icon(AppIcons.addButton),
+                    mini: true,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 50),
+            Column(
+              children: [
+                _buildInfoTile('Buying Power', '\$580.00'),
+                _buildInfoTile('Interest accrued this month', '\$23.20'),
+                _buildInfoTile('Lifetime interest paid', '\$86.52'),
+              ],
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 0, onTap: (index) {}),
+    );
+  }
+
+  Widget _buildChart() {
+    return LineChart(
+      LineChartData(
+        gridData: FlGridData(show: false),
+        titlesData: FlTitlesData(show: false),
+        borderData: FlBorderData(show: false),
+        lineBarsData: [
+          LineChartBarData(
+            spots: [
+              FlSpot(0, 2),
+              FlSpot(1, 2.5),
+              FlSpot(2, 1.8),
+              FlSpot(3, 2.2),
+              FlSpot(4, 1.5),
+              FlSpot(5, 2.8),
+              FlSpot(6, 2.5),
+            ],
+            isCurved: true,
+            color: AppColors.primaryColor,
+            barWidth: 3,
+            dotData: FlDotData(show: false),
+            belowBarData: BarAreaData(show: false),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoTile(String title, String amount) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.lightPurpleColor,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title, style: TextStyle(fontSize: 16, color: Colors.black54)),
+          Text(amount, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        ],
       ),
     );
   }

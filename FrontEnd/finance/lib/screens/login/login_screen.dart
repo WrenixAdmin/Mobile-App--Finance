@@ -4,7 +4,8 @@ import 'package:finance/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:finance/utils/colors.dart'; // Ensure this path is correct
 import '../../components/custom_text_filed.dart'; // Import the custom text field widget
-import '../../components/custom_button.dart'; // Import the custom button widget
+import '../../components/custom_button.dart';
+import '../splash/get_start_screen_three.dart'; // Import the custom button widget
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -17,7 +18,7 @@ class LoginScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const ScreenThree()));
           },
         ),
       ),
@@ -54,7 +55,7 @@ class LoginScreen extends StatelessWidget {
                 text: 'Login',
                 onPressed: () {
                   // Handle login logic
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()));
                 },
               ),
               const SizedBox(height: 20),
