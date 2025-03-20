@@ -3,21 +3,70 @@ import 'package:finance/screens/profile/profile_screen.dart';
 import 'package:finance/utils/colors.dart';
 import 'package:finance/utils/icons.dart';
 import 'package:finance/utils/style.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-
 
 import '../../components/navigator.dart';
 import '../../service/greeting.dart';
+import '../../service/auth_service.dart';
 import '../notification/notification_screen.dart';
+import '../login/login_screen.dart';
 import 'add_expences.dart';
+import '../achievements/achievements_screen.dart';
 
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+  String _userEmail = '';
+  bool _isLoading = true;
 
-class HomeScreen extends StatelessWidget {
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final isLoggedIn = await AuthService.isLoggedIn();
+    if (!isLoggedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+      return;
+    }
+
+    final email = await AuthService.getEmail();
+    if (email != null) {
+      setState(() {
+        _userEmail = email;
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _handleLogout() async {
+    await AuthService.logout();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(150),
@@ -42,10 +91,29 @@ class HomeScreen extends StatelessWidget {
                       Text(GreetingMessage().getGreeting(),
                           style: AppStyles.body),
                       const SizedBox(height: 4),
-                      const Text('Nico Robin',
+                      Text(_userEmail,
                           style: AppStyles.headr),
                       const Text('Welcome to Dashboard',
                           style: AppStyles.body),
+                      const SizedBox(height: 8),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const AchievementsScreen()),
+                          );
+                        },
+                        icon: const Icon(Icons.emoji_events, color: Colors.amber),
+                        label: const Text('View Achievements'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black87,
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                   Row(
@@ -63,11 +131,11 @@ class HomeScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ProfileScreen()),
+                            MaterialPageRoute(builder: (context) => const ProfileScreen()),
                           );
                         },
                         child: ProfileAvatar(
-                          imagePath: 'images/avatar.png',
+                          displayName: _userEmail,
                           radius: 24,
                         ),
                       ),
@@ -109,8 +177,6 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(height: 4),
                       const Text('Last 30 Days +12%',
                           style: TextStyle(color: AppColors.statusGreen, fontSize: 16)),
-                      const SizedBox(height: 16),
-                      Container(height: 150, child: _buildChart()),
                     ],
                   ),
                 ),
@@ -142,34 +208,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 0, onTap: (index) {}),
-    );
-  }
-
-  Widget _buildChart() {
-    return LineChart(
-      LineChartData(
-        gridData: FlGridData(show: false),
-        titlesData: FlTitlesData(show: false),
-        borderData: FlBorderData(show: false),
-        lineBarsData: [
-          LineChartBarData(
-            spots: [
-              FlSpot(0, 2),
-              FlSpot(1, 2.5),
-              FlSpot(2, 1.8),
-              FlSpot(3, 2.2),
-              FlSpot(4, 1.5),
-              FlSpot(5, 2.8),
-              FlSpot(6, 2.5),
-            ],
-            isCurved: true,
-            color: AppColors.primaryColor,
-            barWidth: 3,
-            dotData: FlDotData(show: false),
-            belowBarData: BarAreaData(show: false),
-          ),
-        ],
-      ),
     );
   }
 

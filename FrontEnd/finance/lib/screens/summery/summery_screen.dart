@@ -5,14 +5,56 @@ import 'package:flutter/material.dart';
 
 import '../../components/navigator.dart';
 import '../../components/profile_avatar.dart';
+import '../../service/auth_service.dart';
 import '../profile/profile_screen.dart';
+import '../login/login_screen.dart';
 
-
-class SpendingScreen extends StatelessWidget {
+class SpendingScreen extends StatefulWidget {
   const SpendingScreen({super.key});
 
   @override
+  State<SpendingScreen> createState() => _SpendingScreenState();
+}
+
+class _SpendingScreenState extends State<SpendingScreen> {
+  String _userEmail = '';
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    final isLoggedIn = await AuthService.isLoggedIn();
+    if (!isLoggedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
+      return;
+    }
+
+    final email = await AuthService.getEmail();
+    if (email != null) {
+      setState(() {
+        _userEmail = email;
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(180),
@@ -47,11 +89,11 @@ class SpendingScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => ProfileScreen()),
+                        MaterialPageRoute(builder: (context) => const ProfileScreen()),
                       );
                     },
                     child: ProfileAvatar(
-                      imagePath: 'images/avatar.png',
+                      displayName: _userEmail,
                       radius: 24,
                     ),
                   ),
