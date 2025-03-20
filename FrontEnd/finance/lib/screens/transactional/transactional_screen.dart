@@ -1,138 +1,155 @@
+// File: finance/lib/screens/transactional/transactional_screen.dart
+
 import 'package:finance/utils/colors.dart';
+import 'package:finance/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:finance/components/ProfileIcon.dart';
-
-import '../../components/curve_cliper.dart';
-
-class Transaction {
-  final String month;
-  final String name;
-  final String amount;
-  final String date;
-
-  const Transaction({
-    required this.month,
-    required this.name,
-    required this.amount,
-    required this.date,
-  });
-}
-
-class TransactionHistory {
-  final List<Transaction> transactions;
-
-  const TransactionHistory({this.transactions = const [
-    Transaction(month: "October, 2024", name: "Starbucks-Coffee", amount: "\$12.50", date: "Oct 19, 05:45 AM"),
-    Transaction(month: "October, 2024", name: "Uber-Ride", amount: "\$54.00", date: "Oct 15, 09:10 PM"),
-    Transaction(month: "October, 2024", name: "Uber-Ride", amount: "\$25.00", date: "Oct 17, 02:13 PM"),
-    Transaction(month: "October, 2024", name: "Walmart-Household", amount: "\$10.50", date: "Oct 07, 08:10 PM"),
-    Transaction(month: "October, 2024", name: "Pitzahut-chity fry Pizza", amount: "\$08.00", date: "Oct 02, 01:19 AM"),
-    Transaction(month: "September, 2024", name: "Uber-Ride", amount: "\$13.00", date: "Sep 28, 09:10 PM"),
-    Transaction(month: "September, 2024", name: "Walmart-Table", amount: "\$20.00", date: "Sep 23, 09:10 PM"),
-    Transaction(month: "September, 2024", name: "Uber-Ride", amount: "\$15.00", date: "Sep 22, 10:24 AM"),
-  ]});
-}
+import '../../components/navigator.dart';
+import 'transaction_deatils.dart'; // Import the TransactionDetailsScreen
 
 class TransactionHistoryScreen extends StatelessWidget {
-  final TransactionHistory history = const TransactionHistory();
-
-  const TransactionHistoryScreen({super.key});
-
-
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.bodyBagroundColor,
-        title: const Text('Transaction'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black), // Left arrow icon
-          onPressed: () {
-            Navigator.of(context).pop(); // Navigate back to the previous page
-          },
-        ),
-        actions: [
-          ProfileIcon(userName: 'John Doe'), // Add the ProfileIcon here
-        ],
-      ),
-      body: Column(
-        children: [
-          ClipPath(
-            clipper: CurveClipper(),
-            child: Container(
-              color: AppColors.bodyBagroundColor,
-              height: screenHeight * 0.2,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(160),
+        child: Container(
+          padding: EdgeInsets.only(top: 50, left: 16, right: 16, bottom: 20),
+          decoration: BoxDecoration(
+            color: Color(0xFFD7C3FB),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02, vertical: screenHeight * 0.01),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildTimeFilterButton("Today"),
-                _buildTimeFilterButton("Week"),
-                _buildTimeFilterButton("Month"),
-                _buildTimeFilterButton("Year"),
-              ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(screenWidth * 0.03),
-            padding: EdgeInsets.all(screenWidth * 0.05),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
-                ),
-              ],
-            ),
-            child: Column(
-              children: [
-                SizedBox(height: screenHeight * 0.01),
-                Container(
-                  height: screenHeight * 0.4, // Adjust the height of the 3D container
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: history.transactions.length,
-                    itemBuilder: (context, index) {
-                      final transaction = history.transactions[index];
-                      return ListTile(
-                        title: Text(transaction.name),
-                        subtitle: Text(transaction.date),
-                        trailing: Text(transaction.amount),
-                      );
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.arrow_back, size: 28),
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
                   ),
-                ),
-              ],
-            ),
+                  Text('Transaction', style: AppStyles.title),
+                  CircleAvatar(
+                    backgroundImage: AssetImage('images/avatar.png'),
+                    radius: 20,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              _buildFilterBar(),
+            ],
           ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: [
+            _buildTransactionSection('October, 2024', [
+              _buildTransactionItem(context, 'Starbucks-Coffee', 'Oct 19, 05:45 AM', '\$12.50'),
+              _buildTransactionItem(context, 'Uber-Ride', 'Oct 15, 09:10 PM', '\$54.00'),
+              _buildTransactionItem(context, 'Uber-Ride', 'Oct 12, 02:13 PM', '\$25.00'),
+              _buildTransactionItem(context, 'Walmart-Household', 'Oct 07, 09:10 PM', '\$10.50'),
+              _buildTransactionItem(context, 'Pizzahut-chily fry Pizza', 'Oct 02, 01:19 AM', '\$08.00'),
+            ]),
+            _buildTransactionSection('September, 2024', [
+              _buildTransactionItem(context, 'Uber-Ride', 'Sep 28, 09:10 PM', '\$13.00'),
+              _buildTransactionItem(context, 'Walmart-Table', 'Sep 25, 09:10 PM', '\$20.00'),
+              _buildTransactionItem(context, 'Uber-Ride', 'Sep 22, 10:24 AM', '\$15.00'),
+            ]),
+          ],
+        ),
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(currentIndex: 2, onTap: (index) {}),
+    );
+  }
+
+  Widget _buildFilterBar() {
+    return Container(
+      padding: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: AppColors.white.withOpacity(0.4),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          _buildFilterButton('Today'),
+          _buildFilterButton('Week'),
+          _buildFilterButton('Month', selected: true),
+          _buildFilterButton('Year'),
         ],
       ),
     );
   }
 
-  Widget _buildTimeFilterButton(String text) {
-    return ElevatedButton(
-      onPressed: () {
-        // Handle the time filter button press
-      },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.purple.withOpacity(0.2),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+  Widget _buildFilterButton(String text, {bool selected = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          backgroundColor: selected ? Colors.purple : Colors.white,
+          foregroundColor: selected ? Colors.white : Colors.black54,
+          elevation: 0, // Remove shadow
         ),
+        child: Text(text),
       ),
-      child: Text(text),
     );
   }
-}
 
+  Widget _buildTransactionSection(String title, List<Widget> transactions) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        ),
+        ...transactions,
+      ],
+    );
+  }
+
+  Widget _buildTransactionItem(BuildContext context, String name, String date, String amount) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 4),
+      child: ListTile(
+        leading: _getTransactionIcon(name),
+        title: Text(name),
+        subtitle: Text(date),
+        trailing: Text(amount, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => TransactionDetailsScreen()),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _getTransactionIcon(String name) {
+    if (name.contains('Uber')) {
+      return CircleAvatar(backgroundColor: Colors.black, child: Text('U', style: TextStyle(color: Colors.white)));
+    } else if (name.contains('Walmart')) {
+      return CircleAvatar(backgroundColor: Colors.blue, child: Text('W', style: TextStyle(color: Colors.white)));
+    } else if (name.contains('Starbucks')) {
+      return CircleAvatar(backgroundColor: Colors.green, child: Text('S', style: TextStyle(color: Colors.white)));
+    } else if (name.contains('Pizzahut')) {
+      return CircleAvatar(backgroundColor: Colors.red, child: Text('P', style: TextStyle(color: Colors.white)));
+    } else {
+      return CircleAvatar(backgroundColor: Colors.grey, child: Text('T', style: TextStyle(color: Colors.white)));
+    }
+  }
+}

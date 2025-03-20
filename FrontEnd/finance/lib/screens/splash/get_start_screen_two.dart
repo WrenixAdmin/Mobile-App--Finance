@@ -11,14 +11,13 @@ class ScreenTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           ClipPath(
             clipper: CustomClipPath(),
             child: Container(
-              height: 500,
-              color: AppColors.lightPurpleColor, // No corresponding color in AppColors
+              height: 450,
+              color: AppColors.lightPurpleColor,
             ),
           ),
           Column(
@@ -51,19 +50,18 @@ class ScreenTwo extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 100), // Increased space above the image
-                    Image.asset('assets/screen_one.png', height: 200),
+                    Image.asset('images/screen_two.png', height: 300),
                     const Column(
                       // Increased space between the two texts
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const SizedBox(height: 200),
+                        SizedBox(height: 50),
                         Text(
                           'MS Extraction &',
                           style: AppStyles.title,
                           textAlign: TextAlign.center,
                         ),
-                        SizedBox(height: 10), // Space between the two texts
+                        SizedBox(height: 10),
                         Text(
                           'Subscription Detection',
                           style: AppStyles.title,
@@ -71,13 +69,13 @@ class ScreenTwo extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 40), // Increased space below the texts
+                    const SizedBox(height: 40),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: const Text(
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Text(
                   'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
                   textAlign: TextAlign.center,
                   style: AppStyles.subtitle,
@@ -91,7 +89,7 @@ class ScreenTwo extends StatelessWidget {
                   Icon(AppIcons.inactiveIndicator, size: 10, color: AppColors.indicatorInactive),
                 ],
               ),
-              const SizedBox(height: 40), // Add some space at the bottom
+              const SizedBox(height: 40),
             ],
           ),
         ],
